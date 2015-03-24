@@ -1,6 +1,9 @@
 import os
 import glob
 import time
+import httplib
+import urllib, urllib2
+from datetime import datetime
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
@@ -10,7 +13,7 @@ device_folder = glob.glob(base_dir + '28*')[0]
 device_file = device_folder + '/w1_slave'
 
 station_id = 'KTXARLIN73'
-password = ''
+password = "M*qw1%PCF!"
 
 def read_temp_raw():
     f = open(device_file, 'r')
@@ -30,23 +33,24 @@ def read_temp():
         temp_f = temp_c * 9.0 / 5.0 + 32.0
         return temp_f
 
-def upload_data:
+def upload_data():
     try:
         temp = read_temp()
         conn = httplib.HTTPConnection("rtupdate.wunderground.com")
-        path = "/weatherstation/updateweatherstation.php?ID=" + stationid + "&PASSWORD=" + password + "&dateutc=" + str(datetime.utcnow()) + "&tempf=" + str(temp) + "&softwaretype=RaspberryPi&action=updateraw"
+        path = "/weatherstation/updateweatherstation.php?ID=" + station_id + "&PASSWORD=" + password + "&dateutc=" + urllib.quote(str(datetime.utcnow())) + "&tempf=" + str(temp) + "&softwaretype=RaspberryPi&action=updateraw"
+        print path
         conn.request("GET", path)
         res = conn.getresponse()
-
+        #res = urllib2.urlopen(path).read()
         # checks whether there was a successful connection (HTTP code 200 and content of page contains "success")
-        if ((int(res.status) == 200) & ("success" in res.read())):
-            print "%s - Successful Upload\nTemp: %.1f F" % (str(datetime.now()), temp, humidity, delay)
+        if (int(res.status) == 200):
+   	    print "Successful Upload\nTemp:"
         else:
-            print "%s -- Upload not successful." % (str(datetime.now()), delay)
+            print "Upload not successful. %i" % res.status
     except IOError as e: #in case of any kind of socket error
-        print "{0} -- I/O error({1}): {2} will try again in {3} seconds".format(datetime.now(), e.errno, e.strerror, delay)
-
+        print "{0} -- I/O error({1}): {2} will try again in {2} seconds".format(datetime.now(), e.errno, e.strerror)
+	print e
 	
 while True:
-	print(read_temp())	
-	time.sleep(1)
+	upload_data()
+	time.sleep(600)
