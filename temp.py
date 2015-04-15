@@ -4,7 +4,7 @@ import time
 import httplib
 import urllib, urllib2
 from datetime import datetime
-from Adafruit_Python_DHT import Adafruit_DHT
+import Adafruit_DHT
 
 station_id = 'KTXARLIN73'
 password = "M*qw1%PCF!"
