@@ -31,7 +31,7 @@ def upload_data(data):
 	print e
 
 def get_data():
-  data = humid_temp.read_humid_temp()
+  data = humid_temp.get_data()
   return data
 
 while True:
