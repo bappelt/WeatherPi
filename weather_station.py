@@ -16,6 +16,7 @@ def upload_data(data):
         path = ("/weatherstation/updateweatherstation.php?ID=" + station_id + "&PASSWORD=" + password
                 + "&dateutc=" + urllib.quote(str(datetime.utcnow())) + "&tempf=" + str(data['temp_f'])
                 + "&humidity=" + str(data['humidity'])
+                + "&dewptf=" + str(data['dewptf'])
                 + "&softwaretype=RaspberryPi&action=updateraw")
         print path
         conn.request("GET", path)
