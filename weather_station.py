@@ -24,7 +24,7 @@ def upload_data(data):
         #res = urllib2.urlopen(path).read()
         # checks whether there was a successful connection (HTTP code 200 and content of page contains "success")
         if (int(res.status) == 200):
-   	    print "Successful Upload"
+   	    print "Successful Upload: " + res.read()
         else:
             print "Upload not successful. %i" % res.status
     except IOError as e: #in case of any kind of socket error
