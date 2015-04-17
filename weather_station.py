@@ -7,8 +7,8 @@ from datetime import datetime
 import weather_utils
 import humid_temp
 
-station_id = os.environ('WEATHER_UNDERGROUND_STATION_ID')
-password = os.environ('WEATHER_UNDERGROUND_PASSWORD')
+station_id = os.environ['WEATHER_UNDERGROUND_STATION_ID']
+password = os.environ['WEATHER_UNDERGROUND_PASSWORD']
 
 def upload_data(data):
     try:
