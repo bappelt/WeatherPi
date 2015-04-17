@@ -8,4 +8,4 @@ def get_data():
   return {  'temp_f': temp_f,
             'temp_c': temp_c,
             'humidity': humidity,
-            'dewptf': weather_utils.dewpoint_f(temp_f) }
+            'dewptf': weather_utils.dewpoint_f(temp_f, humidity) }
