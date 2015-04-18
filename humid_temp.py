@@ -1,4 +1,3 @@
-# import Adafruit_Python_DHT
 import weather_utils
 import Adafruit_DHT
 
