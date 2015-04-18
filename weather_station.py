@@ -13,7 +13,8 @@ password = os.environ['WEATHER_UNDERGROUND_PASSWORD']
 def upload_data(data):
     try:
         conn = httplib.HTTPConnection("rtupdate.wunderground.com")
-        path = ("/weatherstation/updateweatherstation.php?ID=" + station_id + "&PASSWORD=" + password
+        path = ("/weatherstation/updateweatherstation.php?ID=" + station_id
+                + "&PASSWORD=" + urllib.quote(password)
                 + "&dateutc=" + urllib.quote(str(datetime.utcnow())) + "&tempf=" + str(data['temp_f'])
                 + "&humidity=" + str(data['humidity'])
                 + "&dewptf=" + str(data['dewptf'])
