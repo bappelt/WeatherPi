@@ -36,7 +36,6 @@ def get_data():
   data = humid_temp.get_data()
   return data
 
-while True:
-  data = get_data()
-  upload_data(data)
-  time.sleep(600)
+#send data once per execution
+data = get_data()
+upload_data(data)
